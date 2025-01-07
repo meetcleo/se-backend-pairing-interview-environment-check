@@ -6,8 +6,8 @@ This repository contains checks to verify that your local development environmen
 
 You should be able to run these checks by simply cloning this repo and running the default rake task.
 
-1. `$ git clone repo-address`
-2. `$ cd senior-be-interview-prep`
+1. `$ git clone git@github.com:meetcleo/se-backend-pairing-interview-environment-check.git`
+2. `$ cd se-backend-pairing-interview-environment-check`
 3. `$ rake`
 
 ## What this repository checks
