@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
 module Requirements
-  require_relative 'requirement'
+  # Sets up a Sqlite database and ensures that we can read and write data.
   class SqliteRequirement < Requirement
     require 'sqlite3'
     require 'active_record'
 
+    # A test ActiveRecord class to read/write data for
     class Foo < ActiveRecord::Base
-      belongs_to :bar
+      self.table_name = 'foo_bars'
+      belongs_to :bar, class_name: 'Bar', foreign_key: 'owner_id'
     end
 
+    # A test ActiveRecord class to read/write data for
     class Bar < ActiveRecord::Base
-      has_one :foo
+      self.table_name = 'foo_bars'
+      has_one :foo, class_name: 'Foo', foreign_key: 'owner_id'
     end
 
     private
 
     def run_check!
-      can_write_and_read_sqlite?
-    end
-
-    def can_write_and_read_sqlite?
       build_database_schema!
       can_write_records_to_database? and can_read_records_from_database?
     end
@@ -49,15 +49,10 @@ module Requirements
 
     def build_database_schema!
       database_connection.instance_eval do
-        create_table 'foos', force: true do |t|
+        create_table 'foo_bars', force: true do |t|
           t.string 'name'
-          t.integer 'bar_id'
-          t.datetime 'created_at'
-          t.datetime 'updated_at'
-        end
-
-        create_table 'bars', force: true do |t|
-          t.string 'name'
+          t.integer 'owner_id'
+          t.string 'type'
           t.datetime 'created_at'
           t.datetime 'updated_at'
         end

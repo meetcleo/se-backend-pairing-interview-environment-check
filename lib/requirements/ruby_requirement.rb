@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Requirements
-  require_relative 'requirement'
+  # Check that the required Ruby version is being loaded in the environment
   class RubyRequirement < Requirement
-
-    REPO_RUBY_VERSION = File.read('./.ruby-version').to_s.gsub(/[^.\d]+/,'').to_s
-
+    # Load the required Ruby version from the `.ruby-version` file.
+    # @return String
+    REPO_RUBY_VERSION = File.read('./.ruby-version').to_s.gsub(/[^.\d]+/, '').to_s
 
     private
 

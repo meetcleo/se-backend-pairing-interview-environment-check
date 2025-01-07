@@ -1,9 +1,8 @@
 # frozen_string_literal: true
+require 'bundler'
+Bundler.require
 
-require 'bundler/inline'
-$LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
-require 'requirements/ruby_requirement'
-require 'requirements/sqlite_requirement'
+require_relative 'lib/requirements'
 
 task :check_requirements do
   [
